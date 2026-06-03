@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dore Ad Tech Group</title>
+  <style>
+    /* ============================================================
+       COLOURS — change these to rebrand the whole site
+       ============================================================ */
+    :root {
+      --brand:        #f5c800;
+      --brand-dark:   #1a1a00;
+      --accent:       #f5c800;
+      --text:         #1a1a00;
+      --muted:        #555540;
+      --bg:           #ffffff;
+      --surface:      #fffde7;
+      --border:       #e8e0a0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 60px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--brand); }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; }
+    .nav-links a { color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--brand); text-decoration: none; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 60%, #1a1a2e 100%);
+      color: #fff;
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; }
+    .hero p  { font-size: 1.15rem; opacity: 0.85; max-width: 600px; margin: 0 auto 2.5rem; }
+    .hero-cta {
+      display: inline-block;
+      background: #1a1a00;
+      color: #f5c800;
+      padding: 0.85rem 2.2rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,0,128,0.4); text-decoration: none; }
+
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-transform: uppercase; letter-spacing: 0.12em;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--brand); margin-bottom: 0.5rem;
+    }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 1rem; }
+    .lead { font-size: 1.05rem; color: var(--muted); max-width: 680px; margin-bottom: 3rem; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card:hover { box-shadow: 0 8px 32px rgba(96,1,210,0.1); transform: translateY(-3px); }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card p  { font-size: 0.9rem; color: var(--muted); }
+    .card-tag {
+      display: inline-block; margin-top: 1rem;
+      background: var(--brand); color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.2rem 0.7rem; border-radius: 1rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    .results-strip {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      color: #fff; padding: 4rem 2rem;
+    }
+    .results-inner { max-width: 1100px; margin: 0 auto; }
+    .results-strip h2 { color: #fff; }
+    .results-strip .lead { color: rgba(255,255,255,0.75); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
+    .stat-box {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 1rem;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+    }
+    .stat-box .num { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+    .stat-box .lbl { font-size: 0.85rem; opacity: 0.8; margin-top: 0.4rem; }
+
+    .clients-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+    .client-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .about-photo {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 1.5rem;
+      object-fit: cover;
+    }
+    .about-photo-placeholder {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 1.5rem;
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.9rem; text-align: center; gap: 0.5rem;
+    }
+    .about-photo-placeholder span { font-size: 3rem; }
+    .about-text h2 { margin-bottom: 1rem; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .pill {
+      background: var(--brand); color: #fff;
+      padding: 0.35rem 0.9rem; border-radius: 2rem;
+      font-size: 0.8rem; font-weight: 600;
+    }
+
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between;
+    }
+    .contact-box h2 { margin-bottom: 0.5rem; }
+    .contact-box p { color: var(--muted); max-width: 480px; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-weight: 600; font-size: 0.95rem;
+      color: var(--text);
+    }
+    .contact-link .icon {
+      width: 38px; height: 38px;
+      background: var(--brand); color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     🛠️  EDIT YOUR CONTENT HERE
+     Change any text between the quotes below.
+     Do NOT change anything above or below the CONTENT block.
+     ============================================================ -->
+<script>
+const CONTENT = {
+
+  /* ---- YOUR DETAILS ---- */
+  name:       "Dore Ad Tech Group",
+  role:       "DSP Sales Partner · Yahoo Ad Tech",
+  tagline:    "Connecting Australian brands to audiences that matter — across CTV, Native, Display, Audio & DOOH.",
+  heroButton: { label: "Get in touch", href: "mailto:hayden.dore@yahooinc.com" },
+
+  /* ---- NAVIGATION ---- */
+  nav: [
+    { label: "What I Do",  href: "#capabilities" },
+    { label: "Results",    href: "#results"      },
+    { label: "Clients",    href: "#clients"      },
+    { label: "About",      href: "#about"        },
+    { label: "Contact",    href: "#contact"      },
+  ],
+
+  /* ---- CAPABILITIES ---- */
+  capabilities: {
+    heading: "What I Help You Buy",
+    intro:   "Yahoo's DSP gives agencies premium, brand-safe inventory across every screen. Here's where I spend my time:",
+    cards: [
+      {
+        icon:  "📺",
+        title: "Connected TV (CTV)",
+        body:  "BVOD, SVOD, OEM and FAST streaming partners. Premium long-form video that reaches cord-cutters at scale.",
+        tag:   "~70% of activity",
+      },
+      {
+        icon:  "📰",
+        title: "Native",
+        body:  "In-feed placements that match the look and feel of editorial content. Great for brand storytelling.",
+        tag:   "Display & Native",
+      },
+      {
+        icon:  "🖥️",
+        title: "Display",
+        body:  "Open-web display at scale. Retargeting, prospecting, and awareness across Yahoo's publisher network.",
+        tag:   "Open web",
+      },
+      {
+        icon:  "🎧",
+        title: "Audio",
+        body:  "Spotify, Listnr, and ARN. Reach engaged audiences in lean-back moments on mobile and smart speakers.",
+        tag:   "Spotify · Listnr · ARN",
+      },
+      {
+        icon:  "🏙️",
+        title: "DOOH",
+        body:  "Digital out-of-home planned programmatically via Perion SSP — JCDecaux, oOh!, QMS, and Civic Outdoor.",
+        tag:   "Growing channel",
+      },
+      {
+        icon:  "📊",
+        title: "Data & Measurement",
+        body:  "First-party Yahoo data, audience targeting, and programmatic measurement to prove campaign impact.",
+        tag:   "Full-funnel",
+      },
+    ],
+  },
+
+  /* ---- RESULTS / STATS ---- */
+  results: {
+    heading: "Delivering Results for Agencies",
+    intro:   "Working with Half Dome and other agency partners to drive omnichannel performance across Australia.",
+    stats: [
+      { num: "$3M+",  lbl: "Agency revenue managed (2025)" },
+      { num: "10+",   lbl: "Active brand accounts"          },
+      { num: "5",     lbl: "Channels activated"             },
+      { num: "70%",   lbl: "Share of voice in CTV"          },
+    ],
+  },
+
+  /* ---- CLIENTS ---- */
+  clients: {
+    heading: "Brands I've Worked With",
+    intro:   "A selection of advertisers I've helped activate programmatically through their agency partners.",
+    list: ["NBN", "The Good Guys", "EGO", "ECOSA", "FRANK Health", "GMHBA", "T2", "Moonpig", "Cobram Estate", "Lifestyle"],
+  },
+
+  /* ---- ABOUT ---- */
+  about: {
+    heading: "About Me",
+    bio: [
+      "I'm a DSP Sales Partner at Yahoo Ad Tech in Australia, focused on helping agencies get the most out of programmatic advertising — particularly in CTV, where I spend the majority of my time.",
+      "Before Yahoo I worked across SVOD (Foxtel) and DOOH (JCDecaux), so I bring cross-channel experience to every conversation. I'm building my knowledge in performance media, display, and native.",
+      "I work best in proactive partnerships — showing up with schedules, deals, and ideas rather than waiting for a brief.",
+    ],
+    /*
+      PHOTO: Replace photoUrl with the filename of your photo
+      (e.g. "photo.jpg" if it's in the same folder as index.html).
+      Leave as "" to show the placeholder.
+    */
+    photoUrl: "",
+    skills: ["CTV / BVOD", "Programmatic", "DOOH", "Audio", "Agency Sales", "Foxtel Alumni", "JCDecaux Alumni"],
+  },
+
+  /* ---- CONTACT ---- */
+  contact: {
+    heading: "Let's Work Together",
+    intro:   "If you're an agency wanting to explore Yahoo DSP inventory or build a campaign proposal, I'd love to hear from you.",
+    links: [
+      { icon: "✉️", label: "hayden.dore@yahooinc.com", href: "mailto:hayden.dore@yahooinc.com" },
+      { icon: "💼", label: "LinkedIn",                  href: "https://linkedin.com/in/haydendore" },
+    ],
+  },
+
+  footer: "© 2026 Hayden Dore · Yahoo Ad Tech · Australia",
+};
+</script>
+<!-- ============================================================
+     END OF CONTENT BLOCK — don't edit below this line
+     ============================================================ -->
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const C = CONTENT;
+  document.title = `${C.name} | Yahoo DSP`;
+
+  document.getElementById("nav").innerHTML = `
+    <div class="nav-logo">${C.name}</div>
+    <nav class="nav-links">
+      ${C.nav.map(l => `<a href="${l.href}">${l.label}</a>`).join("")}
+    </nav>`;
+
+  document.getElementById("hero").innerHTML = `
+    <div class="hero-tag">${C.role}</div>
+    <h1>${C.name}</h1>
+    <p>${C.tagline}</p>
+    <a class="hero-cta" href="${C.heroButton.href}">${C.heroButton.label}</a>`;
+
+  const cap = C.capabilities;
+  document.getElementById("capabilities").innerHTML = `
+    <div class="section-label">Capabilities</div>
+    <h2>${cap.heading}</h2>
+    <p class="lead">${cap.intro}</p>
+    <div class="grid-3">
+      ${cap.cards.map(c => `
+        <div class="card">
+          <div class="card-icon">${c.icon}</div>
+          <h3>${c.title}</h3>
+          <p>${c.body}</p>
+          <span class="card-tag">${c.tag}</span>
+        </div>`).join("")}
+    </div>`;
+
+  const res = C.results;
+  document.getElementById("results-inner").innerHTML = `
+    <div class="section-label" style="color:rgba(255,255,255,0.6)">Results</div>
+    <h2>${res.heading}</h2>
+    <p class="lead">${res.intro}</p>
+    <div class="stats-grid">
+      ${res.stats.map(s => `
+        <div class="stat-box">
+          <div class="num">${s.num}</div>
+          <div class="lbl">${s.lbl}</div>
+        </div>`).join("")}
+    </div>`;
+
+  const cli = C.clients;
+  document.getElementById("clients").innerHTML = `
+    <div class="section-label">Clients</div>
+    <h2>${cli.heading}</h2>
+    <p class="lead">${cli.intro}</p>
+    <div class="clients-list">
+      ${cli.list.map(name => `<span class="client-chip">${name}</span>`).join("")}
+    </div>`;
+
+  const ab = C.about;
+  const photoHtml = ab.photoUrl
+    ? `<img src="${ab.photoUrl}" alt="${C.name}" class="about-photo" />`
+    : `<div class="about-photo-placeholder"><span>🧑‍💼</span><p>Add your photo<br><small>(set photoUrl in CONTENT)</small></p></div>`;
+  document.getElementById("about").innerHTML = `
+    <div class="about-grid">
+      ${photoHtml}
+      <div class="about-text">
+        <div class="section-label">About</div>
+        <h2>${ab.heading}</h2>
+        ${ab.bio.map(p => `<p>${p}</p>`).join("")}
+        <div class="pill-list">
+          ${ab.skills.map(s => `<span class="pill">${s}</span>`).join("")}
+        </div>
+      </div>
+    </div>`;
+
+  const con = C.contact;
+  document.getElementById("contact").innerHTML = `
+    <div class="contact-box">
+      <div>
+        <div class="section-label">Contact</div>
+        <h2>${con.heading}</h2>
+        <p>${con.intro}</p>
+      </div>
+      <div class="contact-links">
+        ${con.links.map(l => `
+          <a class="contact-link" href="${l.href}" target="_blank" rel="noopener">
+            <div class="icon">${l.icon}</div>
+            <span>${l.label}</span>
+          </a>`).join("")}
+      </div>
+    </div>`;
+
+  document.getElementById("footer").textContent = C.footer;
+});
+</script>
+
+<div style="text-align: center; padding: 1rem; background: var(--bg); border-bottom: 1px solid var(--border);">
+  <img src="Cricket.jpeg" alt="Logo" style="height: 80px;">
+</div>
+<header id="nav"></header>
+<div class="hero" id="hero"></div>
+<section id="capabilities"></section>
+<div class="results-strip"><div class="results-inner" id="results-inner"></div></div>
+<section id="clients"></section>
+<section id="about"></section>
+<section id="contact"></section>
+<footer id="footer"></footer>
+
+</body>
+</html>
