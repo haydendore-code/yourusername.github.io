@@ -1,0 +1,26 @@
+<svg width="100%" viewBox="0 0 680 280" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Dore Ad Tech Group logo</title>
+  <desc>A bold yellow and black logo for Dore Ad Tech Group featuring a signal/broadcast icon and clean typography</desc>
+
+  <style>
+    .logo-name { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 52px; font-weight: 700; fill: #1a1a00; letter-spacing: -1px; }
+    .logo-sub  { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; font-weight: 500; fill: #1a1a00; letter-spacing: 4px; text-transform: uppercase; }
+  </style>
+
+  <!-- Background pill -->
+  <rect x="60" y="40" width="560" height="200" rx="20" fill="#f5c800"/>
+
+  <!-- Signal arc icon -->
+  <g transform="translate(148, 140)">
+    <path d="M-52,-52 A73,73 0 0,1 52,-52" fill="none" stroke="#1a1a00" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-34,-34 A48,48 0 0,1 34,-34" fill="none" stroke="#1a1a00" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-17,-17 A24,24 0 0,1 17,-17" fill="none" stroke="#1a1a00" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="8" fill="#1a1a00"/>
+    <line x1="0" y1="0" x2="0" y2="52" stroke="#1a1a00" stroke-width="7" stroke-linecap="round"/>
+    <line x1="-20" y1="52" x2="20" y2="52" stroke="#1a1a00" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- Name -->
+  <text x="220" y="155" class="logo-name">Dore.</text>
+  <text x="220" y="205" class="logo-sub">Ad Tech Group</text>
+</svg>
